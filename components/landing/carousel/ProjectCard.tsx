@@ -20,7 +20,7 @@ export default function ProjectCard({
       type="button"
       onClick={onClick}
       className={clsx(
-        "group relative flex h-[clamp(250px,42svh,440px)] w-[clamp(210px,58vw,340px)] flex-col overflow-hidden rounded-[1.1rem] bg-white text-left shadow-[0_18px_24px_rgba(0,0,0,0.18)] transition-[transform,box-shadow,opacity] duration-500 ease-out sm:w-[clamp(230px,42vw,350px)] lg:w-[clamp(250px,28vw,360px)]",
+        "group relative flex h-[clamp(250px,35svh,440px)] w-[clamp(210px,58vw,340px)] flex-col overflow-hidden rounded-[1.1rem] bg-white text-left shadow-[0_18px_24px_rgba(0,0,0,0.18)] transition-[transform,box-shadow,opacity] duration-500 ease-out sm:w-[clamp(230px,42vw,350px)] lg:w-[clamp(250px,28vw,360px)]",
         active
           ? "scale-100 shadow-[0_20px_30px_rgba(0,0,0,0.22)]"
           : "scale-[0.95]",

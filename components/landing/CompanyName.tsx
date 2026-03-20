@@ -1,23 +1,78 @@
+"use client";
+
 import Logo from "./Logo";
 
-export default function CompanyName() {
+interface ViewportProps {
+  isMobile: boolean;
+  isTablet: boolean;
+  isLandscape: boolean;
+  height: number;
+  width: number;
+}
+
+export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   const word = "LINDOCODE";
 
+  // Dynamic sizing based on viewport
+  const getTextSize = () => {
+    if (viewport.isLandscape && viewport.height < 500) return "text-[1.5rem]";
+    if (viewport.isLandscape && viewport.height < 600) return "text-[1.8rem]";
+    if (viewport.isMobile && !viewport.isLandscape) return "text-[2rem]";
+    if (viewport.isTablet && viewport.isLandscape) return "text-[2.5rem]";
+    return "text-[3rem]";
+  };
+
+  const getDigitalSize = () => {
+    if (viewport.isLandscape && viewport.height < 500) return "text-[1rem]";
+    if (viewport.isLandscape && viewport.height < 600) return "text-[1.2rem]";
+    if (viewport.isMobile && !viewport.isLandscape) return "text-[1.3rem]";
+    if (viewport.isTablet && viewport.isLandscape) return "text-[1.8rem]";
+    return "text-[2rem]";
+  };
+
+  const getLayout = () => {
+    if (viewport.isLandscape && viewport.height < 500)
+      return "flex-row items-center gap-2";
+    if (viewport.isLandscape && viewport.height < 600)
+      return "flex-row items-center gap-3";
+    if (viewport.isMobile && !viewport.isLandscape)
+      return "flex-col items-center gap-1";
+    if (viewport.isTablet && viewport.isLandscape)
+      return "flex-row items-center gap-4";
+    return "flex-col items-center gap-2";
+  };
+
+  const getLogoSize = () => {
+    if (viewport.isLandscape && viewport.height < 500) return "compact-xs";
+    if (viewport.isLandscape && viewport.height < 600) return "compact";
+    if (viewport.isMobile && !viewport.isLandscape) return "medium";
+    return "large";
+  };
+
   return (
-    <header className="flex min-h-[18vh] flex-col items-center justify-center pt-2 sm:min-h-[20vh] lg:min-h-[22vh] landscape:max-h-[500px]:min-h-[16vh] landscape:max-h-[500px]:flex-row">
-      <div className="flex items-center gap-[0.08em] text-[clamp(2rem,6vw,3.5rem)] font-black tracking-[0.08em] text-black">
-        {word
-          .split("")
-          .map((char, index) =>
-            char === "I" ? (
-              <Logo key="logo-i" className="mx-1" />
-            ) : (
-              <span key={index}>{char}</span>
-            ),
-          )}
+    <header
+      className={`
+      flex ${getLayout()} justify-center w-full
+      transition-all duration-300 ease-in-out
+    `}
+    >
+      <div
+        className={`flex items-center gap-1 font-black tracking-wide ${getTextSize()}`}
+      >
+        {word.split("").map((char, index) =>
+          char === "I" ? (
+            <Logo key="logo-i" size={getLogoSize()} />
+          ) : (
+            <span key={index} className="text-black">
+              {char}
+            </span>
+          ),
+        )}
       </div>
 
-      <div className="mt-2 text-[clamp(1.3rem,3.5vw,4.5rem)] tracking-[0.12em] text-black landscape:max-h-[500px]:ml-4 landscape:max-h-[500px]:mt-3">
+      <div
+        className={`${getDigitalSize()} font-bold tracking-wider text-black`}
+      >
         DIGITAL™
       </div>
     </header>
