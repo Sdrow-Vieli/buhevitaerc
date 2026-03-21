@@ -5,28 +5,45 @@ import { gsap } from "gsap";
 import type { Project } from "@/lib/projects";
 import ProjectCard from "./ProjectCard";
 
-function getRadius() {
-  const base = Math.min(window.innerWidth, window.innerHeight);
+interface ViewportProps {
+  isMobile: boolean;
+  isTablet: boolean;
+  isLandscape: boolean;
+  height: number;
+  width: number;
+}
 
-  if (window.innerWidth < 640) return Math.max(150, Math.min(240, base * 0.3));
-  if (window.innerWidth < 1024) return Math.max(200, Math.min(340, base * 0.4));
+/*mxm*/
+
+function getRadius(viewport: ViewportProps) {
+  const base = Math.min(viewport.width, viewport.height);
+
+  if (viewport.width < 640) return Math.max(150, Math.min(240, base * 0.3));
+  if (viewport.width < 1024) return Math.max(200, Math.min(340, base * 0.4));
   return Math.max(220, Math.min(420, base * 0.35));
 }
 
-export default function Carousel3D({ projects }: { projects: Project[] }) {
+export default function Carousel3D({
+  projects,
+  viewport,
+}: {
+  projects: Project[];
+  viewport: ViewportProps;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [radius, setRadius] = useState(220);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  const angleStep = useMemo(() => 360 / projects.length, [projects.length]);
+  const angleStep = useMemo(
+    () => (projects.length ? 360 / projects.length : 0),
+    [projects.length],
+  );
+
   const currentRotation = -(activeIndex * angleStep);
 
   useEffect(() => {
-    const updateRadius = () => setRadius(getRadius());
-    updateRadius();
-    window.addEventListener("resize", updateRadius);
-    return () => window.removeEventListener("resize", updateRadius);
-  }, []);
+    setRadius(getRadius(viewport));
+  }, [viewport]);
 
   useEffect(() => {
     itemRefs.current.forEach((item, index) => {
