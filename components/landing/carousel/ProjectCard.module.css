@@ -16,8 +16,3 @@
   border-radius: 1.1rem;
   overflow: hidden;
 }
-
-.cardBack {
-  transform: rotateY(180deg);
-  background: linear-gradient(135deg, #e11d48, #be123c);
-}
