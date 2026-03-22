@@ -13,8 +13,6 @@ interface ViewportProps {
   width: number;
 }
 
-/*mxm*/
-
 function getRadius(viewport: ViewportProps) {
   const base = Math.min(viewport.width, viewport.height);
 
@@ -52,7 +50,10 @@ export default function Carousel3D({
       const angle = index * angleStep + currentRotation;
       const radians = (Math.PI / 180) * angle;
       const x = radius * Math.sin(radians);
-      const z = radius * Math.cos(radians);
+      let z = radius * Math.cos(radians);
+
+      if (index !== activeIndex) z -= 60;
+
       const isActive = index === activeIndex;
 
       gsap.to(item, {
@@ -78,6 +79,7 @@ export default function Carousel3D({
               itemRefs.current[index] = node;
             }}
             className="absolute preserve-3d"
+            style={{ margin: "50px" }}
           >
             <ProjectCard
               project={project}
