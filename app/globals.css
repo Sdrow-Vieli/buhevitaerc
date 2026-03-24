@@ -47,3 +47,42 @@
     font: inherit;
   }
 }
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .perspective-1500 {
+    perspective: 1500px;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .min-h-screen-dynamic {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .h-screen-dynamic {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .viewport-safe {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
