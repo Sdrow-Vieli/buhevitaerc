@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/projects";
 import "./coverflow.css";
 
@@ -11,6 +12,9 @@ type CoverItem = Project & {
 };
 
 export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
+  const router = useRouter();
+  const navigatingRef = useRef(false);
+
   const centeredIndex = useMemo(() => {
     if (!covers.length) return 0;
     return Math.floor(covers.length / 2);
@@ -24,28 +28,77 @@ export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
   }, [centeredIndex]);
 
   useEffect(() => {
+    let cancelled = false;
+    const images: HTMLImageElement[] = [];
+
     covers.forEach((cover, index) => {
       const key = cover.slug ?? String(index);
-
       const img = new window.Image();
+      images.push(img);
+
+      const markLoaded = () => {
+        if (cancelled) return;
+        setLoadedMap((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
+      };
+
+      img.onload = markLoaded;
+      img.onerror = markLoaded;
       img.src = cover.image;
-      img.onload = () => {
-        setLoadedMap((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
-      };
-      img.onerror = () => {
-        setLoadedMap((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
-      };
     });
+
+    return () => {
+      cancelled = true;
+      images.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+    };
   }, [covers]);
+
+  useEffect(() => {
+    const resetNavigationFlag = () => {
+      navigatingRef.current = false;
+    };
+
+    window.addEventListener("pageshow", resetNavigationFlag);
+    return () => {
+      window.removeEventListener("pageshow", resetNavigationFlag);
+    };
+  }, []);
+
   function moveItemToCenteredIndex<T>(items: T[], targetIndex: number) {
     if (!items.length) return items;
 
-    const centeredIndex = Math.floor(items.length / 2);
+    const centered = Math.floor(items.length / 2);
     const next = [...items];
     const [item] = next.splice(targetIndex, 1);
-    next.splice(centeredIndex, 0, item);
+    next.splice(centered, 0, item);
     return next;
   }
+
+  const isInternalLink = (link: string) => link.startsWith("/");
+
+  const navigateToLink = (link?: string) => {
+    if (!link || navigatingRef.current) return;
+
+    navigatingRef.current = true;
+
+    if (isInternalLink(link)) {
+      router.push(link);
+      return;
+    }
+
+    window.location.assign(link);
+  };
+
+  const handleCardAction = (index: number, link?: string) => {
+    if (index === activeIndex) {
+      navigateToLink(link);
+      return;
+    }
+
+    setActiveIndex(index);
+  };
 
   const reorderedCards = moveItemToCenteredIndex(covers, 0);
 
@@ -68,17 +121,19 @@ export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
               flexDirection: "column",
               justifyContent: "end",
               alignItems: "center",
+              cursor: isActive && cover.link ? "pointer" : "default",
             }}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => handleCardAction(index, cover.link)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                setActiveIndex(index);
+                handleCardAction(index, cover.link);
               }
             }}
             role="button"
             tabIndex={0}
             aria-label={cover.alt || `cover-${index}`}
+            aria-pressed={isActive}
           >
             <div className="coverflow-card-media">
               <img

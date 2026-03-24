@@ -21,7 +21,13 @@ export default function ProjectCard({
 
   return (
     <div
-      onClick={onClick}
+      onClick={() => {
+        if (active && project.link) {
+          window.location.href = project.link; // same tab
+        } else {
+          onClick();
+        }
+      }}
       className={clsx(
         "project-card-scene relative h-[clamp(250px,35svh,440px)] w-[clamp(210px,58vw,340px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(230px,42vw,350px)] lg:w-[clamp(250px,28vw,360px)]",
         active ? "scale-100" : "scale-[0.95]",
