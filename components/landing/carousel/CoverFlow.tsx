@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Project } from "@/lib/projects";
 import "./coverflow.css";
 
@@ -11,8 +11,17 @@ type CoverItem = Project & {
 };
 
 export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const centeredIndex = useMemo(() => {
+    if (!covers.length) return 0;
+    return Math.floor(covers.length / 2);
+  }, [covers.length]);
+
+  const [activeIndex, setActiveIndex] = useState(centeredIndex);
   const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    setActiveIndex(centeredIndex);
+  }, [centeredIndex]);
 
   useEffect(() => {
     covers.forEach((cover, index) => {
@@ -28,6 +37,7 @@ export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
       };
     });
   }, [covers]);
+
   return (
     <div className="coverflow-wrapper">
       {covers.map((cover, index) => {
