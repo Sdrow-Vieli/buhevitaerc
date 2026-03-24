@@ -138,9 +138,9 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     return {
       size: "large" as const,
       scale: 1.1,
-      postMargin: 40,
-      headPos: 1,
-      rayPos: 2,
+      postMargin: 35,
+      headPos: 0.5,
+      rayPos: 1.5,
     };
   };
 
@@ -212,7 +212,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
 
       <div
         className={clsx(
-          "company-name-digital font-bold tracking-[0.18em] text-black",
+          "company-name-digital font-normal tracking-[0.18em] text-black",
           getDigitalSize(),
         )}
       >
