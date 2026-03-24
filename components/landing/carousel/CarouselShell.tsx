@@ -29,6 +29,9 @@ export default function CarouselShell({
       <div
         className="fixed top-5 right-5 z-[99999] flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 p-1.5 shadow-[0_8px_16px_rgba(0,0,0,0.25)] backdrop-blur-md"
         aria-label="View mode toggle"
+        style={{
+          marginTop: viewport.isMobile ? "5rem" : "",
+        }}
       >
         <button
           type="button"

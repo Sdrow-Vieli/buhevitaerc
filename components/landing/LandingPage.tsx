@@ -41,24 +41,17 @@ export default function LandingPage() {
     };
   }, []);
 
-  // Calculate dynamic spacing based on viewport
   const getLayoutClasses = () => {
-    if (viewport.isLandscape && viewport.height < 500) {
-      return "py-1 px-2 gap-1"; // Very small landscape (mobile landscape)
-    }
-    if (viewport.isLandscape && viewport.height < 600) {
-      return "py-2 px-3 gap-2"; // Small landscape
-    }
-    if (viewport.isMobile && !viewport.isLandscape) {
-      return "py-3 px-4 gap-3"; // Mobile portrait
-    }
-    if (viewport.isTablet && viewport.isLandscape) {
-      return "py-4 px-6 gap-4"; // Tablet landscape
-    }
-    return "py-6 px-8 gap-6"; // Desktop
+    if (viewport.isLandscape && viewport.height < 500) return "py-1 px-2 gap-1";
+
+    if (viewport.isLandscape && viewport.height < 600) return "py-2 px-3 gap-2";
+
+    if (viewport.isMobile && !viewport.isLandscape) return "py-3 px-4 gap-3";
+
+    if (viewport.isTablet && viewport.isLandscape) return "py-4 px-6 gap-4";
+    return "py-6 px-8 gap-6";
   };
 
-  // Calculate carousel sizing based on viewport
   const getCarouselHeight = () => {
     if (viewport.isLandscape && viewport.height < 500) return "min-h-[55vh]";
     if (viewport.isLandscape && viewport.height < 600) return "min-h-[58vh]";
