@@ -16,6 +16,11 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   const word = "LINDOCODE";
   const isViewportReady = viewport.width > 0 && viewport.height > 0;
 
+  const isRowLayout =
+    (viewport.isLandscape && viewport.height < 500) ||
+    (viewport.isLandscape && viewport.height < 600) ||
+    (viewport.isTablet && viewport.isLandscape);
+
   const getTextSize = () => {
     if (viewport.width <= 420) return "text-[1.65rem]";
     if (viewport.width <= 520) return "text-[1.85rem]";
@@ -40,16 +45,16 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
 
   const getLayout = () => {
     if (viewport.isLandscape && viewport.height < 500) {
-      return "flex-row items-center gap-2";
+      return "flex-row items-baseline gap-2";
     }
     if (viewport.isLandscape && viewport.height < 600) {
-      return "flex-row items-center gap-3";
+      return "flex-row items-baseline gap-3";
     }
     if (viewport.isMobile && !viewport.isLandscape) {
       return "flex-col items-center gap-1";
     }
     if (viewport.isTablet && viewport.isLandscape) {
-      return "flex-row items-center gap-4";
+      return "flex-row items-baseline gap-4";
     }
     return "flex-col items-center gap-2";
   };
@@ -152,6 +157,17 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     return "-mt-1";
   };
 
+  const getDigitalNudge = () => {
+    if (!isRowLayout) return "";
+    if (viewport.isLandscape && viewport.height < 500)
+      return "-translate-y-[0.08em]";
+    if (viewport.isLandscape && viewport.height < 600)
+      return "-translate-y-[0.06em]";
+    if (viewport.isTablet && viewport.isLandscape)
+      return "-translate-y-[0.04em]";
+    return "";
+  };
+
   if (!isViewportReady) {
     return (
       <header className="flex w-full flex-col items-center justify-center gap-2 py-2">
@@ -213,7 +229,9 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
       <div
         className={clsx(
           "company-name-digital font-normal tracking-[0.18em] text-black",
+          isRowLayout && "self-baseline",
           getDigitalSize(),
+          getDigitalNudge(),
         )}
       >
         DIGITAL™
