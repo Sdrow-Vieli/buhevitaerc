@@ -21,7 +21,6 @@
     z-index 0.5s ease;
   box-shadow: 0 4.5px 5px 0 rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  border: 3px solid #efefef;
   overflow: hidden;
   -webkit-box-reflect: below 0.5em
     linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
@@ -105,8 +104,8 @@
 
 /* Active card styling */
 .coverflow-card.active {
-  /* border-color: #ff6b6b; */
-  /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); */
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .lm-project-title {
@@ -158,7 +157,6 @@
 
   .coverflow-card {
     width: 180px;
-    border-width: 2px;
     border-radius: 8px;
     -webkit-box-reflect: below 0.3em
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
@@ -272,7 +270,7 @@
 
   .coverflow-card {
     width: 290px;
-    border-width: 3px;
+
     -webkit-box-reflect: below 0.5em
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
   }

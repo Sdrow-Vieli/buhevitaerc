@@ -48,8 +48,10 @@ export default function Banner({
     viewport.isMobile ? "flex-wrap" : "flex-wrap sm:flex-nowrap sm:gap-x-4",
   );
 
-  const headlineClasses =
-    "text-[clamp(1.1rem,3vw,2.25rem)] font-black tracking-[0.12em]";
+  const baseHeadline = "text-[clamp(1.1rem,3vw,2.25rem)] tracking-[0.12em]";
+
+  const sideText = "font-medium text-neutral-700 opacity-90";
+  const middleText = "font-black";
 
   return (
     <section className={sectionClasses}>
@@ -58,18 +60,15 @@ export default function Banner({
 
         <div className="min-w-0">
           <p className={subtextClasses}>Elegant Simplicity</p>
-
           <div className={textRowClasses}>
-            <span className={clsx(headlineClasses, "text-neutral-900")}>
-              {textLeft}
-            </span>
-            <span className={clsx(headlineClasses, accentColor)}>
+            <span className={clsx(baseHeadline, sideText)}>{textLeft}</span>
+
+            <span className={clsx(baseHeadline, middleText, accentColor)}>
               {textMiddle}
             </span>
-            <span className={clsx(headlineClasses, "text-neutral-900")}>
-              {textRight}
-            </span>
-          </div>
+
+            <span className={clsx(baseHeadline, sideText)}>{textRight}</span>
+          </div>{" "}
         </div>
       </div>
     </section>
