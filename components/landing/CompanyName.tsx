@@ -30,7 +30,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     if (viewport.isMobile && !viewport.isLandscape) return "text-[2rem]";
     if (viewport.isTablet && viewport.isLandscape) return "text-[2.5rem]";
     if (viewport.isTablet) return "text-[4rem]";
-    return "text-[5rem]";
+    return "text-[2.5rem]";
   };
 
   const getDigitalSize = () => {
@@ -41,7 +41,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     if (viewport.isLandscape && viewport.height < 600) return "text-[1.2rem]";
     if (viewport.isMobile && !viewport.isLandscape) return "text-[1.3rem]";
     if (viewport.isTablet && viewport.isLandscape) return "text-[1.8rem]";
-    return "text-[2rem]";
+    return "text-[1.8rem]";
   };
 
   const getLayout = () => {
@@ -64,10 +64,10 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     if (viewport.isLandscape && viewport.width > 700 && viewport.height > 600) {
       return {
         size: "medium" as const,
-        scale: 1.5,
-        postMargin: 30,
-        headPos: -0.2,
-        rayPos: 0.85,
+        scale: 1.3,
+        postMargin: 40,
+        headPos: 0.4,
+        rayPos: 1.2,
       };
     }
 
