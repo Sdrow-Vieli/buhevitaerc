@@ -61,10 +61,10 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="relative min-h-screen-dynamic w-full overflow-hidden">
+    <main className="relative min-h-screen-dynamic w-full bg-[transparent] overflow-hidden">
       <div
         className={`
-        mx-auto flex h-full min-h-screen-dynamic w-full flex-col
+        mx-auto flex h-full min-h-screen-dynamic w-full  flex-col
         ${getLayoutClasses()}
       `}
       >
