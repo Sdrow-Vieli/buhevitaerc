@@ -37,10 +37,21 @@ export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
       };
     });
   }, [covers]);
+  function moveItemToCenteredIndex<T>(items: T[], targetIndex: number) {
+    if (!items.length) return items;
+
+    const centeredIndex = Math.floor(items.length / 2);
+    const next = [...items];
+    const [item] = next.splice(targetIndex, 1);
+    next.splice(centeredIndex, 0, item);
+    return next;
+  }
+
+  const reorderedCards = moveItemToCenteredIndex(covers, 0);
 
   return (
     <div className="coverflow-wrapper">
-      {covers.map((cover, index) => {
+      {reorderedCards.map((cover, index) => {
         const offset = index - activeIndex;
         const isActive = index === activeIndex;
         const key = cover.slug ?? String(index);
