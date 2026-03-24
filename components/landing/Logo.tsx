@@ -83,9 +83,9 @@ const sizeConfig: Record<
   },
   large: {
     scale: 1.1,
-    postMargin: 50,
-    headPos: 1.3,
-    rayPos: 2.3,
+    postMargin: 35,
+    headPos: 0.5,
+    rayPos: 1.4,
     lampHeight: 50,
     postWidth: 0.65,
     dotWidth: 0.6,

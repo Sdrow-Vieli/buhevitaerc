@@ -53,22 +53,6 @@
     text-wrap: balance;
   }
 
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-
-  .perspective-1500 {
-    perspective: 1500px;
-  }
-
-  .rotate-y-180 {
-    transform: rotateY(180deg);
-  }
-
   .min-h-screen-dynamic {
     min-height: 100vh;
     min-height: 100dvh;
