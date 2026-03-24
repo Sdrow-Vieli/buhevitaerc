@@ -60,6 +60,15 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   };
 
   const getLogoConfig = () => {
+    if (viewport.isMobile && viewport.isLandscape && viewport.height < 600) {
+      return {
+        size: "compact-xs" as const,
+        scale: 0.6,
+        postMargin: 30,
+        headPos: -0.2,
+        rayPos: 0.65,
+      };
+    }
     if (viewport.width <= 420) {
       return {
         size: "compact-xs" as const,

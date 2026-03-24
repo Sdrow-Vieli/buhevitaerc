@@ -79,7 +79,12 @@ export default function Carousel3D({
               itemRefs.current[index] = node;
             }}
             className="absolute preserve-3d"
-            style={{ margin: "50px" }}
+            style={{
+              margin:
+                viewport.height <= 600 && viewport.isLandscape
+                  ? "80px 50px 50px 50px"
+                  : "50px",
+            }}
           >
             <ProjectCard
               project={project}
