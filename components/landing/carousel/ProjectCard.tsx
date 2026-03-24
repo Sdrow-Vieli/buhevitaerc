@@ -82,19 +82,19 @@ export default function ProjectCard({
               )}
             </div>
 
-            <div className="project-card-icon-row flex items-center justify-center gap-2 self-center pt-1">
-              {project.icons.map((icon, idx) => (
-                <Image
-                  key={`${project.slug}-${idx}`}
-                  src={icon.src}
-                  alt={icon.alt}
-                  width={icon.size}
-                  height={icon.size}
-                  className="h-auto w-auto max-h-8 max-w-8 sm:max-h-9 sm:max-w-9"
-                  unoptimized
-                />
-              ))}
-            </div>
+            {/* <div className="project-card-icon-row flex items-center justify-center gap-2 self-center pt-1"> */}
+            {/*   {project.icons.map((icon, idx) => ( */}
+            {/*     <Image */}
+            {/*       key={`${project.slug}-${idx}`} */}
+            {/*       src={icon.src} */}
+            {/*       alt={icon.alt} */}
+            {/*       width={icon.size} */}
+            {/*       height={icon.size} */}
+            {/*       className="h-auto w-auto max-h-8 max-w-8 sm:max-h-9 sm:max-w-9" */}
+            {/*       unoptimized */}
+            {/*     /> */}
+            {/*   ))} */}
+            {/* </div> */}
           </div>
         </div>
       </div>

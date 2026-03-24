@@ -39,8 +39,8 @@ export const projects: Project[] = [
     slug: "lazy-appz",
     title: "Lazy Appz",
     cardTitle: "LAZY APPZ™",
-    cardSubtitle: "",
-    description: "Tech Solutions | Visit Us",
+    cardSubtitle: "Visit Us",
+    description: "Tech Solutions",
     extra: "Effortless tech, maximum ease.",
     image:
       "https://dawn-unit-97b0.sdrowvieli1.workers.dev/creativehub/images/cards/cards.webp",
@@ -130,7 +130,7 @@ export const projects: Project[] = [
     slug: "sdrow-vieli",
     title: "Sdrow Vieli",
     cardTitle: "SDROW VIELI",
-    cardSubtitle: "",
+    cardSubtitle: "Explore Books",
     description: "Into the Art of Storytelling",
     image:
       "https://dawn-unit-97b0.sdrowvieli1.workers.dev/creativehub/images/cards/cards6.webp",
