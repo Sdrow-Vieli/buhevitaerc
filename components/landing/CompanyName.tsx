@@ -2,6 +2,7 @@
 
 import "./logo.css";
 import Logo from "./Logo";
+import clsx from "clsx";
 
 interface ViewportProps {
   isMobile: boolean;
@@ -13,6 +14,7 @@ interface ViewportProps {
 
 export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   const word = "LINDOCODE";
+  const isViewportReady = viewport.width > 0 && viewport.height > 0;
 
   const getTextSize = () => {
     if (viewport.width <= 420) return "text-[1.65rem]";
@@ -112,6 +114,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
         rayPos: 0.85,
       };
     }
+
     if (viewport.isMobile && !viewport.isLandscape && viewport.height > 600) {
       return {
         size: "medium" as const,
@@ -121,6 +124,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
         rayPos: 1.7,
       };
     }
+
     if (viewport.isMobile && !viewport.isLandscape) {
       return {
         size: "medium" as const,
@@ -148,27 +152,40 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     return "-mt-1";
   };
 
+  if (!isViewportReady) {
+    return (
+      <header className="flex w-full flex-col items-center justify-center gap-2 py-2">
+        <div className="flex items-end justify-center gap-2">
+          <div className="company-name-skeleton company-name-skeleton-main h-10 w-[220px] rounded-md sm:h-12 sm:w-[280px]" />
+        </div>
+        <div className="company-name-skeleton company-name-skeleton-sub h-4 w-[110px] rounded-md sm:h-5 sm:w-[140px]" />
+      </header>
+    );
+  }
+
   const logoConfig = getLogoConfig();
 
   return (
     <header
-      className={`
-        flex ${getLayout()} justify-center w-full
-        transition-all duration-300 ease-in-out
-      `}
+      className={clsx(
+        "flex w-full justify-center transition-all duration-300 ease-in-out",
+        getLayout(),
+      )}
     >
       <div
-        className={`
-          flex items-end justify-center
-          ${getTextSize()}
-          font-black tracking-[0.06em] text-black
-        `}
+        className={clsx(
+          "flex items-end justify-center font-black tracking-[0.06em] text-black",
+          getTextSize(),
+        )}
       >
         {word.split("").map((char, index) =>
           char === "I" ? (
             <span
               key="logo-i"
-              className={`mx-[0.04em] inline-flex items-end ${getLogoNudge()}`}
+              className={clsx(
+                "mx-[0.04em] inline-flex items-end",
+                getLogoNudge(),
+              )}
             >
               <Logo
                 size={logoConfig.size}
@@ -187,10 +204,10 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
       </div>
 
       <div
-        className={`
-          ${getDigitalSize()}
-          font-bold tracking-[0.18em] text-black
-        `}
+        className={clsx(
+          "font-bold tracking-[0.18em] text-black",
+          getDigitalSize(),
+        )}
       >
         DIGITAL™
       </div>

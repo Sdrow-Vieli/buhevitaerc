@@ -46,12 +46,12 @@ export default function Footer({ viewport }: { viewport: ViewportProps }) {
             size="compact"
             scale={0.4}
             postWidth={0.9}
-            dotWidth={0.9}
+            dotWidth={1.5}
             bulbWidth={0.7}
-            headWidth={1.7}
-            headPos={-2}
-            rayPos={-1.2}
-            postMargin={30}
+            headWidth={2.3}
+            headPos={-1.7}
+            rayPos={-0.7}
+            postMargin={33}
             headColor="#4b5563"
             postColor="#4b5563"
             bulbColor="#4b5563"
