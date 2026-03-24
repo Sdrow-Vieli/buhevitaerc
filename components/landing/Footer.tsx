@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
+import clsx from "clsx";
 import Logo from "./Logo";
 
 interface ViewportProps {
@@ -13,13 +14,14 @@ interface ViewportProps {
 export default function Footer({ viewport }: { viewport: ViewportProps }) {
   const year = new Date().getFullYear();
 
+  const isColumnLayout = viewport.isMobile && !viewport.isLandscape;
+
   const getLayout = () => {
     if (viewport.isLandscape && viewport.height < 500)
       return "flex-row justify-between gap-2 py-1";
     if (viewport.isLandscape && viewport.height < 600)
       return "flex-row justify-between gap-3 py-2";
-    if (viewport.isMobile && !viewport.isLandscape)
-      return "flex-col gap-2 py-3";
+    if (isColumnLayout) return "flex-col py-3";
     return "flex-row justify-between gap-4 py-4";
   };
 
@@ -29,18 +31,23 @@ export default function Footer({ viewport }: { viewport: ViewportProps }) {
     return "h-5 w-5";
   };
 
-  const getLogoSize = () => {
-    if (viewport.isLandscape && viewport.height < 500) return "compact-xs";
-    if (viewport.isLandscape && viewport.height < 600) return "compact";
-    if (viewport.isMobile && !viewport.isLandscape) return "compact";
-    return "medium";
-  };
-
   return (
     <footer
-      className={`flex w-full items-center ${getLayout()} text-neutral-600`}
+      className={clsx(
+        "flex w-full text-neutral-600",
+        getLayout(),
+        isColumnLayout ? "items-center gap-3" : "items-center",
+      )}
     >
-      <div className="flex items-center gap-2 text-xs sm:gap-3 sm:text-sm">
+      {/* COPYRIGHT */}
+      <div
+        className={clsx(
+          "flex items-center gap-2 text-xs sm:gap-3 sm:text-sm",
+          isColumnLayout
+            ? "order-2 mt-auto justify-center text-center w-full"
+            : "order-1",
+        )}
+      >
         <span className="inline-flex rounded-full p-0.5">
           <Logo
             size="compact"
@@ -62,7 +69,13 @@ export default function Footer({ viewport }: { viewport: ViewportProps }) {
         <span>© {year} LindoCode Digital, Inc.</span>
       </div>
 
-      <div className="flex items-center gap-3">
+      {/* ICONS */}
+      <div
+        className={clsx(
+          "flex items-center gap-3",
+          isColumnLayout ? "order-1 justify-center w-full" : "order-2",
+        )}
+      >
         <Link
           href="https://www.linkedin.com/company/lindocode-digital-pty-ltd"
           target="_blank"
