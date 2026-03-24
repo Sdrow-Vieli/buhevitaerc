@@ -34,8 +34,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    background: white;
+    background: transparent;
     color: #171717;
+    position: relative;
   }
 
   img {
@@ -45,6 +46,59 @@
 
   button {
     font: inherit;
+  }
+
+  /* Background layer with image + gradients */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+
+    background-image:
+      radial-gradient(
+        circle at 30% 40%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at 70% 60%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 10% 80%,
+        rgba(0, 0, 0, 0.02) 0%,
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at 90% 20%,
+        rgba(0, 0, 0, 0.02) 0%,
+        transparent 40%
+      ),
+      url("https://dawn-unit-97b0.sdrowvieli1.workers.dev/creativehub/images/background/bg01.webp");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+  }
+
+  /* Vignette effect */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0) 55%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    mix-blend-mode: multiply;
   }
 }
 
