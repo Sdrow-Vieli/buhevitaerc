@@ -1,5 +1,6 @@
 "use client";
 
+import "./logo.css";
 import Logo from "./Logo";
 
 interface ViewportProps {
@@ -13,7 +14,6 @@ interface ViewportProps {
 export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   const word = "LINDOCODE";
 
-  // Dynamic sizing based on viewport
   const getTextSize = () => {
     if (viewport.isLandscape && viewport.height < 500) return "text-[1.5rem]";
     if (viewport.isLandscape && viewport.height < 600) return "text-[1.8rem]";
@@ -31,14 +31,18 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   };
 
   const getLayout = () => {
-    if (viewport.isLandscape && viewport.height < 500)
+    if (viewport.isLandscape && viewport.height < 500) {
       return "flex-row items-center gap-2";
-    if (viewport.isLandscape && viewport.height < 600)
+    }
+    if (viewport.isLandscape && viewport.height < 600) {
       return "flex-row items-center gap-3";
-    if (viewport.isMobile && !viewport.isLandscape)
+    }
+    if (viewport.isMobile && !viewport.isLandscape) {
       return "flex-col items-center gap-1";
-    if (viewport.isTablet && viewport.isLandscape)
+    }
+    if (viewport.isTablet && viewport.isLandscape) {
       return "flex-row items-center gap-4";
+    }
     return "flex-col items-center gap-2";
   };
 
@@ -49,21 +53,36 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     return "large";
   };
 
+  const getLogoNudge = () => {
+    if (viewport.isLandscape && viewport.height < 500) return "-mt-1";
+    if (viewport.isLandscape && viewport.height < 600) return "-mt-1";
+    return "-mt-1";
+  };
+
   return (
     <header
       className={`
-      flex ${getLayout()} justify-center w-full
-      transition-all duration-300 ease-in-out
-    `}
+        flex ${getLayout()} justify-center w-full
+        transition-all duration-300 ease-in-out
+      `}
     >
       <div
-        className={`flex items-center gap-1 font-black tracking-wide ${getTextSize()}`}
+        className={`
+          flex items-end justify-center
+          ${getTextSize()}
+          font-black tracking-[0.06em] text-black
+        `}
       >
         {word.split("").map((char, index) =>
           char === "I" ? (
-            <Logo key="logo-i" size={getLogoSize()} />
+            <span
+              key="logo-i"
+              className={`mx-[0.04em] inline-flex items-end ${getLogoNudge()}`}
+            >
+              <Logo size={getLogoSize()} />{" "}
+            </span>
           ) : (
-            <span key={index} className="text-black">
+            <span key={index} className="inline-block">
               {char}
             </span>
           ),
@@ -71,7 +90,10 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
       </div>
 
       <div
-        className={`${getDigitalSize()} font-bold tracking-wider text-black`}
+        className={`
+          ${getDigitalSize()}
+          font-bold tracking-[0.18em] text-black
+        `}
       >
         DIGITAL™
       </div>

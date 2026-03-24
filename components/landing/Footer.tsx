@@ -43,7 +43,15 @@ export default function Footer({ viewport }: { viewport: ViewportProps }) {
       <div className="flex items-center gap-2 text-xs sm:gap-3 sm:text-sm">
         <span className="inline-flex rounded-full p-0.5">
           <Logo
-            size={getLogoSize()}
+            size="compact"
+            scale={0.4}
+            postWidth={0.9}
+            dotWidth={0.9}
+            bulbWidth={0.7}
+            headWidth={1.7}
+            headPos={-2}
+            rayPos={-1.2}
+            postMargin={30}
             headColor="#4b5563"
             postColor="#4b5563"
             bulbColor="#4b5563"
