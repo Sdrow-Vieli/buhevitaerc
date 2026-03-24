@@ -22,14 +22,15 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
     (viewport.isTablet && viewport.isLandscape);
 
   const getTextSize = () => {
-    if (viewport.width <= 420) return "text-[1.65rem]";
-    if (viewport.width <= 520) return "text-[1.85rem]";
+    if (viewport.width <= 420) return "text-[2.5rem]";
+    if (viewport.width <= 520) return "text-[2.8rem]";
     if (viewport.width <= 640) return "text-[2rem]";
     if (viewport.isLandscape && viewport.height < 500) return "text-[1.5rem]";
     if (viewport.isLandscape && viewport.height < 600) return "text-[1.8rem]";
     if (viewport.isMobile && !viewport.isLandscape) return "text-[2rem]";
     if (viewport.isTablet && viewport.isLandscape) return "text-[2.5rem]";
-    return "text-[3rem]";
+    if (viewport.isTablet) return "text-[4rem]";
+    return "text-[5rem]";
   };
 
   const getDigitalSize = () => {
@@ -60,6 +61,16 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   };
 
   const getLogoConfig = () => {
+    if (viewport.isLandscape && viewport.width > 700 && viewport.height > 500) {
+      return {
+        size: "medium" as const,
+        scale: 1.5,
+        postMargin: 30,
+        headPos: -0.2,
+        rayPos: 0.85,
+      };
+    }
+
     if (viewport.isMobile && viewport.isLandscape && viewport.height < 600) {
       return {
         size: "compact-xs" as const,
@@ -69,23 +80,24 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
         rayPos: 0.65,
       };
     }
+
     if (viewport.width <= 420) {
       return {
-        size: "compact-xs" as const,
-        scale: 0.62,
-        postMargin: 30,
-        headPos: -0.2,
-        rayPos: 0.6,
+        size: "medium" as const,
+        scale: 1,
+        postMargin: 40,
+        headPos: 0.3,
+        rayPos: 1.2,
       };
     }
 
     if (viewport.width <= 520) {
       return {
         size: "compact" as const,
-        scale: 0.78,
+        scale: 0.9,
         postMargin: 35,
-        headPos: 0.05,
-        rayPos: 0.75,
+        headPos: 0.3,
+        rayPos: 1.2,
       };
     }
 
@@ -151,8 +163,8 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
 
     return {
       size: "large" as const,
-      scale: 1.1,
-      postMargin: 35,
+      scale: 1.45,
+      postMargin: 30,
       headPos: 0.5,
       rayPos: 1.5,
     };
