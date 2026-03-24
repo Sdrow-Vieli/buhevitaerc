@@ -1,6 +1,6 @@
 "use client";
 
-import "./logo.css";
+import "./Logo.css";
 import Logo from "./Logo";
 import clsx from "clsx";
 

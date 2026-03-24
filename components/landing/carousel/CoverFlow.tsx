@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/projects";
-import "./coverflow.css";
+import "./CoverFlow.css";
 
 interface ViewportProps {
   isMobile: boolean;

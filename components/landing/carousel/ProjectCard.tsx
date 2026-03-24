@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import type { Project } from "@/lib/projects";
-import "./project-card.css";
+import "./ProjectCard.css";
 
 type ProjectCardProps = {
   project: Project;
