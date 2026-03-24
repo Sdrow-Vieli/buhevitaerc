@@ -69,7 +69,7 @@ export default function CarouselShell({
         }
       >
         {viewMode === "cover" ? (
-          <CoverFlow covers={projects} />
+          <CoverFlow covers={projects} viewport={viewport} />
         ) : (
           <Carousel3D projects={projects} viewport={viewport} />
         )}

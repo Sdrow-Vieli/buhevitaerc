@@ -5,13 +5,26 @@ import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/projects";
 import "./coverflow.css";
 
+interface ViewportProps {
+  isMobile: boolean;
+  isTablet: boolean;
+  isLandscape: boolean;
+  height: number;
+  width: number;
+}
+
 type CoverItem = Project & {
   image: string;
   alt?: string;
   "card-title"?: string;
 };
 
-export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
+type CoverFlowProps = {
+  covers: CoverItem[];
+  viewport: ViewportProps;
+};
+
+export default function CoverFlow({ covers, viewport }: CoverFlowProps) {
   const router = useRouter();
   const navigatingRef = useRef(false);
 
@@ -122,6 +135,10 @@ export default function CoverFlow({ covers }: { covers: CoverItem[] }) {
               justifyContent: "end",
               alignItems: "center",
               cursor: isActive && cover.link ? "pointer" : "default",
+              margin:
+                viewport.height <= 600 && viewport.isLandscape
+                  ? "80px 50px 50px 50px"
+                  : "50px",
             }}
             onClick={() => handleCardAction(index, cover.link)}
             onKeyDown={(e) => {

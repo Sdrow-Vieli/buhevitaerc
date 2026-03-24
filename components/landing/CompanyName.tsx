@@ -61,7 +61,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   };
 
   const getLogoConfig = () => {
-    if (viewport.isLandscape && viewport.width > 700 && viewport.height > 500) {
+    if (viewport.isLandscape && viewport.width > 700 && viewport.height > 600) {
       return {
         size: "medium" as const,
         scale: 1.5,
