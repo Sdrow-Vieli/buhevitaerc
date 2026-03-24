@@ -175,7 +175,7 @@
   }
 
   .coverflow-card {
-    width: 120px;
+    width: 180px;
   }
 }
 
@@ -187,7 +187,7 @@
   }
 
   .coverflow-card {
-    width: 100px;
+    width: 160px;
   }
 
   .coverflow-card {
@@ -204,7 +204,7 @@
   }
 
   .coverflow-card {
-    width: 100px;
+    width: 190px;
   }
 }
 
@@ -221,14 +221,14 @@
 }
 
 /* Tablet Portrait (768px to 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
   .coverflow-wrapper {
     height: 380px;
     margin: 0 0 0 0;
   }
 
   .coverflow-card {
-    width: 210px;
+    width: 220px;
   }
 
   .coverflow-card {
@@ -250,14 +250,14 @@
 }
 
 /* Large Tablet (1025px to 1280px) */
-@media (min-width: 1025px) and (max-width: 1280px) {
+@media (min-width: 1024px) and (max-width: 1280px) {
   .coverflow-wrapper {
     height: 400px;
     margin: 0 0 0 0;
   }
 
   .coverflow-card {
-    width: 210px;
+    width: 260px;
   }
 }
 
