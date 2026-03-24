@@ -155,10 +155,12 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   if (!isViewportReady) {
     return (
       <header className="flex w-full flex-col items-center justify-center gap-2 py-2">
-        <div className="flex items-end justify-center gap-2">
-          <div className="company-name-skeleton company-name-skeleton-main h-10 w-[220px] rounded-md sm:h-12 sm:w-[280px]" />
+        <div className="company-name-skeleton-wrap">
+          <div className="company-name-skeleton company-name-skeleton-main h-10 w-[230px] sm:h-12 sm:w-[310px]" />
         </div>
-        <div className="company-name-skeleton company-name-skeleton-sub h-4 w-[110px] rounded-md sm:h-5 sm:w-[140px]" />
+        <div className="company-name-skeleton-wrap">
+          <div className="company-name-skeleton company-name-skeleton-sub h-4 w-[112px] sm:h-5 sm:w-[148px]" />
+        </div>
       </header>
     );
   }
@@ -168,7 +170,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
   return (
     <header
       className={clsx(
-        "flex w-full justify-center transition-all duration-300 ease-in-out",
+        "company-name-enter flex w-full justify-center transition-all duration-300 ease-in-out",
         getLayout(),
       )}
     >
@@ -183,9 +185,10 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
             <span
               key="logo-i"
               className={clsx(
-                "mx-[0.04em] inline-flex items-end",
+                "company-name-logo-pop mx-[0.04em] inline-flex items-end",
                 getLogoNudge(),
               )}
+              style={{ animationDelay: `${index * 45}ms` }}
             >
               <Logo
                 size={logoConfig.size}
@@ -196,7 +199,11 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
               />
             </span>
           ) : (
-            <span key={index} className="inline-block">
+            <span
+              key={index}
+              className="company-name-letter inline-block"
+              style={{ animationDelay: `${index * 45}ms` }}
+            >
               {char}
             </span>
           ),
@@ -205,7 +212,7 @@ export default function CompanyName({ viewport }: { viewport: ViewportProps }) {
 
       <div
         className={clsx(
-          "font-bold tracking-[0.18em] text-black",
+          "company-name-digital font-bold tracking-[0.18em] text-black",
           getDigitalSize(),
         )}
       >
