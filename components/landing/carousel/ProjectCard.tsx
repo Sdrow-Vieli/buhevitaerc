@@ -29,7 +29,7 @@ export default function ProjectCard({
         }
       }}
       className={clsx(
-        "project-card-scene relative h-[clamp(220px,30svh,360px)] w-[clamp(190px,52vw,300px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(210px,34vw,280px)] lg:w-[clamp(220px,18vw,260px)]",
+        "project-card-scene relative h-[clamp(220px,30svh,360px)] w-[clamp(190px,52vw,300px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(210px,30vw,280px)] lg:w-[clamp(220px,28vw,290px)]",
         active ? "scale-100" : "scale-[0.95]",
       )}
     >
@@ -76,7 +76,7 @@ export default function ProjectCard({
               </p>
 
               {project.cardSubtitle && (
-                <p className="text-center text-[clamp(0.68rem,1.5vw,0.88rem)] text-neutral-500">
+                <p className="text-center text-[clamp(0.75rem,1.8vw,1rem)] font-medium leading-snug text-neutral-500">
                   {project.cardSubtitle}
                 </p>
               )}
