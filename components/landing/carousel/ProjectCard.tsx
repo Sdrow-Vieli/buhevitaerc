@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import type { Project } from "@/lib/projects";
+import "./project-card.css";
 
 type ProjectCardProps = {
   project: Project;
@@ -15,33 +17,47 @@ export default function ProjectCard({
   active,
   onClick,
 }: ProjectCardProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div
       onClick={onClick}
       className={clsx(
-        "relative h-[clamp(250px,35svh,440px)] w-[clamp(210px,58vw,340px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(230px,42vw,350px)] lg:w-[clamp(250px,28vw,360px)]",
+        "project-card-scene relative h-[clamp(250px,35svh,440px)] w-[clamp(210px,58vw,340px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(230px,42vw,350px)] lg:w-[clamp(250px,28vw,360px)]",
         active ? "scale-100" : "scale-[0.95]",
       )}
     >
+      {/* FRONT */}
       <div
         className={clsx(
-          "absolute inset-0 rounded-[1.1rem] transition-all duration-500",
-          active ? "opacity-100 rotate-0" : "opacity-0 rotateY-180",
+          "project-card-face project-card-front overflow-hidden transition-all duration-500",
+          active
+            ? "project-card-face-visible"
+            : "project-card-face-hidden-front",
         )}
       >
-        {/* FRONT - Detailed card (active only) */}
-        <div className="flex h-full flex-col overflow-hidden rounded-[1.1rem] bg-white shadow-[0_18px_24px_rgba(0,0,0,0.7)]">
-          <div className="relative h-[64%] w-full overflow-hidden rounded-t-[1.1rem] border-[4px] border-white bg-neutral-100 sm:border-[5px]">
+        <div className="flex h-full flex-col">
+          <div
+            className={clsx(
+              "project-card-image-wrapper flex items-end justify-center",
+              !imageLoaded && "loading",
+            )}
+          >
             <Image
               src={project.image}
               alt={project.cardTitle}
               fill
               priority={active}
               sizes="(max-width: 639px) 58vw, (max-width: 1023px) 42vw, 360px"
-              className="object-cover"
+              className={clsx(
+                "project-card-image object-cover transition-opacity duration-500",
+                imageLoaded ? "opacity-100" : "opacity-0",
+              )}
+              onLoad={() => setImageLoaded(true)}
             />
-            <div className="absolute inset-x-0 bottom-2 flex justify-center px-2">
-              <span className="inline-flex max-w-[90%] truncate rounded-full border border-rose-500 bg-white px-3 py-1 text-[clamp(0.72rem,2vw,1rem)] font-semibold text-black shadow-sm sm:px-4">
+
+            <div className="absolute inset-x-0 bottom-2 z-[3] flex justify-center px-2">
+              <span className="project-card-title-pill inline-flex max-w-[90%] truncate rounded-full border border-red-500 bg-white px-3 py-1 text-[clamp(0.72rem,2vw,1rem)] text-black shadow-sm sm:px-4">
                 {project.cardTitle}
               </span>
             </div>
@@ -52,6 +68,7 @@ export default function ProjectCard({
               <p className="text-center text-[clamp(0.75rem,1.8vw,1rem)] font-medium leading-snug text-neutral-800">
                 {project.description}
               </p>
+
               {project.cardSubtitle && (
                 <p className="text-center text-[clamp(0.68rem,1.5vw,0.88rem)] text-neutral-500">
                   {project.cardSubtitle}
@@ -59,7 +76,7 @@ export default function ProjectCard({
               )}
             </div>
 
-            <div className="flex items-center justify-center gap-2 self-center">
+            <div className="project-card-icon-row flex items-center justify-center gap-2 self-center pt-1">
               {project.icons.map((icon, idx) => (
                 <Image
                   key={`${project.slug}-${idx}`}
@@ -76,19 +93,15 @@ export default function ProjectCard({
         </div>
       </div>
 
+      {/* BACK */}
       <div
         className={clsx(
-          "absolute inset-0 rounded-[1.1rem] transition-all duration-500",
-          active ? "opacity-0 -rotateY-180" : "opacity-100 rotate-0",
+          "project-card-face project-card-back flex items-center justify-center transition-all duration-500",
+          active
+            ? "project-card-face-hidden-back"
+            : "project-card-face-visible-back",
         )}
-      >
-        {/* BACK - Simple red card (inactive cards) */}
-        <div className="flex h-full items-center justify-center rounded-[1.1rem] bg-red-600 shadow-[0_8px_12px_rgba(0,0,0,0.8)]">
-          <span className="text-center text-white font-semibold text-lg px-4">
-            {project.title}
-          </span>
-        </div>
-      </div>
+      ></div>
     </div>
   );
 }
