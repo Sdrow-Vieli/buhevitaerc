@@ -1,37 +1,33 @@
 "use client";
 
-import { Suspense, lazy, useState } from "react";
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import { LayoutGrid, GalleryVerticalEnd } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import CoverFlow from "./CoverFlow";
 
-const Carousel3D = lazy(() => import("./Carousel3D"));
+const Carousel3D = dynamic(() => import("./Carousel3D"), {
+  loading: () => (
+    <div className="flex min-h-[320px] items-center justify-center text-sm text-neutral-500">
+      Loading showcase...
+    </div>
+  ),
+});
 
-interface ViewportProps {
-  isMobile: boolean;
-  isTablet: boolean;
-  isLandscape: boolean;
-  height: number;
-  width: number;
-}
-
-export default function CarouselShell({
-  projects,
-  viewport,
-}: {
-  projects: Project[];
-  viewport: ViewportProps;
-}) {
+export default function CarouselShell({ projects }: { projects: Project[] }) {
   const [viewMode, setViewMode] = useState<"cover" | "cards">("cover");
 
   return (
     <div className="carousel-shell">
       <div
-        className="fixed top-5 right-5 z-[99999] flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 p-1.5 shadow-[0_8px_16px_rgba(0,0,0,0.25)] backdrop-blur-md"
+        className="
+          fixed right-5 top-5 z-[99999]
+          mt-20 sm:mt-0
+          flex items-center gap-1.5 rounded-full
+          border border-white/15 bg-white/10 p-1.5
+          shadow-[0_8px_16px_rgba(0,0,0,0.25)] backdrop-blur-md
+        "
         aria-label="View mode toggle"
-        style={{
-          marginTop: viewport.isMobile ? "5rem" : "",
-        }}
       >
         <button
           type="button"
@@ -64,19 +60,11 @@ export default function CarouselShell({
         </button>
       </div>
 
-      <Suspense
-        fallback={
-          <div className="flex min-h-[320px] items-center justify-center text-sm text-neutral-500">
-            Loading showcase...
-          </div>
-        }
-      >
-        {viewMode === "cover" ? (
-          <CoverFlow covers={projects} viewport={viewport} />
-        ) : (
-          <Carousel3D projects={projects} viewport={viewport} />
-        )}
-      </Suspense>
+      {viewMode === "cover" ? (
+        <CoverFlow covers={projects} />
+      ) : (
+        <Carousel3D projects={projects} />
+      )}
     </div>
   );
 }

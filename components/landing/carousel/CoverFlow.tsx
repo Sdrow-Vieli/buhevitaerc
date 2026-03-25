@@ -1,17 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation"; /*use */
+import { useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/projects";
 import "./CoverFlow.css";
-
-interface ViewportProps {
-  isMobile: boolean;
-  isTablet: boolean;
-  isLandscape: boolean;
-  height: number;
-  width: number;
-}
 
 type CoverItem = Project & {
   image: string;
@@ -21,10 +13,9 @@ type CoverItem = Project & {
 
 type CoverFlowProps = {
   covers: CoverItem[];
-  viewport: ViewportProps;
 };
 
-export default function CoverFlow({ covers, viewport }: CoverFlowProps) {
+export default function CoverFlow({ covers }: CoverFlowProps) {
   const router = useRouter();
   const navigatingRef = useRef(false);
 
@@ -34,50 +25,6 @@ export default function CoverFlow({ covers, viewport }: CoverFlowProps) {
   }, [covers.length]);
 
   const [activeIndex, setActiveIndex] = useState(centeredIndex);
-  const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({});
-
-  useEffect(() => {
-    setActiveIndex(centeredIndex);
-  }, [centeredIndex]);
-
-  useEffect(() => {
-    let cancelled = false;
-    const images: HTMLImageElement[] = [];
-
-    covers.forEach((cover, index) => {
-      const key = cover.slug ?? String(index);
-      const img = new window.Image();
-      images.push(img);
-
-      const markLoaded = () => {
-        if (cancelled) return;
-        setLoadedMap((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
-      };
-
-      img.onload = markLoaded;
-      img.onerror = markLoaded;
-      img.src = cover.image;
-    });
-
-    return () => {
-      cancelled = true;
-      images.forEach((img) => {
-        img.onload = null;
-        img.onerror = null;
-      });
-    };
-  }, [covers]);
-
-  useEffect(() => {
-    const resetNavigationFlag = () => {
-      navigatingRef.current = false;
-    };
-
-    window.addEventListener("pageshow", resetNavigationFlag);
-    return () => {
-      window.removeEventListener("pageshow", resetNavigationFlag);
-    };
-  }, []);
 
   function moveItemToCenteredIndex<T>(items: T[], targetIndex: number) {
     if (!items.length) return items;
@@ -121,12 +68,11 @@ export default function CoverFlow({ covers, viewport }: CoverFlowProps) {
         const offset = index - activeIndex;
         const isActive = index === activeIndex;
         const key = cover.slug ?? String(index);
-        const isLoaded = !!loadedMap[key];
 
         return (
           <div
             key={key}
-            className={`coverflow-card ${isActive ? "active" : ""} ${!isLoaded ? "loading" : "loaded"}`}
+            className={`coverflow-card ${isActive ? "active" : ""} loaded`}
             style={{
               transform: `translateX(${offset * 120}%) rotateY(${offset * 45}deg) scale(${isActive ? 1.5 : 0.9})`,
               zIndex: isActive ? 100 : 50 - Math.abs(offset),
@@ -135,10 +81,6 @@ export default function CoverFlow({ covers, viewport }: CoverFlowProps) {
               justifyContent: "end",
               alignItems: "center",
               cursor: isActive && cover.link ? "pointer" : "default",
-              margin:
-                viewport.height <= 600 && viewport.isLandscape
-                  ? "80px 50px 50px 50px"
-                  : "50px",
             }}
             onClick={() => handleCardAction(index, cover.link)}
             onKeyDown={(e) => {
@@ -156,8 +98,9 @@ export default function CoverFlow({ covers, viewport }: CoverFlowProps) {
               <img
                 src={cover.image}
                 alt={cover.alt || cover["card-title"] || cover.title}
-                className={`coverflow-card-image ${isLoaded ? "is-visible" : ""}`}
+                className="coverflow-card-image is-visible"
                 draggable={false}
+                loading="lazy"
               />
             </div>
 
