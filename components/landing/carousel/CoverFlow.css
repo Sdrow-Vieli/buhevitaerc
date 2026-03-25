@@ -175,7 +175,7 @@
   }
 
   .coverflow-card {
-    width: 180px;
+    width: 150px;
   }
 }
 
@@ -245,7 +245,7 @@
   }
 
   .coverflow-card {
-    width: 200px;
+    width: 180px;
   }
 }
 
@@ -257,7 +257,7 @@
   }
 
   .coverflow-card {
-    width: 180px;
+    width: 210px;
   }
 }
 
@@ -269,7 +269,7 @@
   }
 
   .coverflow-card {
-    width: 210px;
+    width: 350px;
 
     -webkit-box-reflect: below 0.5em
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
@@ -284,7 +284,7 @@
   }
 
   .coverflow-card {
-    width: 210px;
+    width: 350px;
   }
 }
 
