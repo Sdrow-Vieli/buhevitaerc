@@ -31,15 +31,15 @@ export default function CompanyName() {
               className="company-name-logo-pop mx-[0.04em] -mt-1 inline-flex items-end"
               style={{ animationDelay: `${index * 45}ms` }}
             >
-              <span className="hidden min-[641px]:inline-flex">
-                <Logo
-                  size="large"
-                  scale={1.45}
-                  postMargin={30}
-                  headPos={0.5}
-                  rayPos={1.5}
-                />
-              </span>
+              {/* <span className="hidden min-[641px]:inline-flex"> */}
+              {/*   <Logo */}
+              {/*     size="large" */}
+              {/*     scale={1.45} */}
+              {/*     postMargin={30} */}
+              {/*     headPos={0.5} */}
+              {/*     rayPos={1.5} */}
+              {/*   /> */}
+              {/* </span> */}
 
               <span className="hidden sm:inline-flex min-[641px]:hidden">
                 <Logo
