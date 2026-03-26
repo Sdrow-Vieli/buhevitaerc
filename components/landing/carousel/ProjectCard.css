@@ -19,7 +19,6 @@
   color: #333;
   box-shadow: 0 18px 20px 0 rgba(0, 0, 0, 0.6);
   pointer-events: auto !important;
-  max-height: 300px;
 }
 
 .project-card-back {
@@ -97,6 +96,7 @@
     animation: none;
   }
 }
+
 .project-card-face-visible {
   opacity: 1;
   transform: rotateY(0deg);

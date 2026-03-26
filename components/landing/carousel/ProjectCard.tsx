@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import type { Project } from "@/lib/projects";
@@ -16,6 +17,8 @@ export default function ProjectCard({
   active,
   onClick,
 }: ProjectCardProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div
       onClick={() => {
@@ -26,7 +29,7 @@ export default function ProjectCard({
         }
       }}
       className={clsx(
-        "project-card-scene relative h-[clamp(220px,30svh,360px)] w-[clamp(190px,52vw,300px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(210px,30vw,280px)] lg:w-[clamp(220px,28vw,290px)]",
+        "project-card-scene relative h-[clamp(220px,30svh,300px)] w-[clamp(190px,52vw,300px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(210px,30vw,280px)] lg:w-[clamp(220px,28vw,290px)]",
         active ? "scale-100" : "scale-[0.95]",
       )}
     >
@@ -39,14 +42,23 @@ export default function ProjectCard({
         )}
       >
         <div className="flex h-full flex-col">
-          <div className="project-card-image-wrapper flex items-end justify-center">
+          <div
+            className={clsx(
+              "project-card-image-wrapper flex items-end justify-center",
+              !imageLoaded && "loading",
+            )}
+          >
             <Image
               src={project.image}
               alt={project.cardTitle}
               fill
               priority={active}
               sizes="(max-width: 639px) 58vw, (max-width: 1023px) 42vw, 360px"
-              className="project-card-image object-cover"
+              className={clsx(
+                "project-card-image object-cover transition-opacity duration-500",
+                imageLoaded ? "opacity-100" : "opacity-0",
+              )}
+              onLoad={() => setImageLoaded(true)}
             />
 
             <div className="absolute inset-x-0 bottom-2 z-[3] flex justify-center px-2">
@@ -63,7 +75,7 @@ export default function ProjectCard({
               </p>
 
               {project.cardSubtitle && (
-                <p className="text-center text-[clamp(0.75rem,1.8vw,1rem)] font-medium leading-snug text-neutral-500">
+                <p className="text-center font-medium text-[clamp(0.68rem,1.5vw,0.88rem)] text-neutral-500">
                   {project.cardSubtitle}
                 </p>
               )}
