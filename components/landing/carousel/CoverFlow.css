@@ -265,7 +265,7 @@
   }
 
   .coverflow-card {
-    width: 350px;
+    width: 250px;
     -webkit-box-reflect: below 0.5em
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
   }
@@ -279,7 +279,7 @@
   }
 
   .coverflow-card {
-    width: 350px;
+    width: 250px;
   }
 }
 
