@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import type { Project } from "@/lib/projects";
-import "./project-card.css";
+import "./ProjectCard.css";
 
 type ProjectCardProps = {
   project: Project;
@@ -23,17 +23,16 @@ export default function ProjectCard({
     <div
       onClick={() => {
         if (active && project.link) {
-          window.location.href = project.link; // same tab
+          window.location.href = project.link;
         } else {
           onClick();
         }
       }}
       className={clsx(
-        "project-card-scene relative h-[clamp(220px,30svh,360px)] w-[clamp(190px,52vw,300px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(210px,34vw,280px)] lg:w-[clamp(220px,18vw,260px)]",
+        "project-card-scene relative h-[clamp(220px,30svh,300px)] w-[clamp(190px,52vw,300px)] cursor-pointer transition-all duration-500 ease-out sm:w-[clamp(210px,30vw,280px)] lg:w-[clamp(220px,28vw,290px)]",
         active ? "scale-100" : "scale-[0.95]",
       )}
     >
-      {/* FRONT */}
       <div
         className={clsx(
           "project-card-face project-card-front overflow-hidden transition-all duration-500",
@@ -76,30 +75,15 @@ export default function ProjectCard({
               </p>
 
               {project.cardSubtitle && (
-                <p className="text-center text-[clamp(0.68rem,1.5vw,0.88rem)] text-neutral-500">
+                <p className="text-center font-medium text-[clamp(0.68rem,1.5vw,0.88rem)] text-neutral-500">
                   {project.cardSubtitle}
                 </p>
               )}
-            </div>
-
-            <div className="project-card-icon-row flex items-center justify-center gap-2 self-center pt-1">
-              {project.icons.map((icon, idx) => (
-                <Image
-                  key={`${project.slug}-${idx}`}
-                  src={icon.src}
-                  alt={icon.alt}
-                  width={icon.size}
-                  height={icon.size}
-                  className="h-auto w-auto max-h-8 max-w-8 sm:max-h-9 sm:max-w-9"
-                  unoptimized
-                />
-              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* BACK */}
       <div
         className={clsx(
           "project-card-face project-card-back flex items-center justify-center transition-all duration-500",
@@ -107,7 +91,7 @@ export default function ProjectCard({
             ? "project-card-face-hidden-back"
             : "project-card-face-visible-back",
         )}
-      ></div>
+      />
     </div>
   );
 }

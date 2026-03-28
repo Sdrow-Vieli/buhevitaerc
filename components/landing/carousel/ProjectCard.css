@@ -96,6 +96,7 @@
     animation: none;
   }
 }
+
 .project-card-face-visible {
   opacity: 1;
   transform: rotateY(0deg);

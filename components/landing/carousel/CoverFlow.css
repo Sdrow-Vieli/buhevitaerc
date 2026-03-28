@@ -12,13 +12,14 @@
 
 .coverflow-card {
   position: absolute;
-  transform: translateY(-50%);
   width: 200px;
   aspect-ratio: 1;
   cursor: pointer;
   transition:
     transform 0.5s ease,
-    z-index 0.5s ease;
+    z-index 0.5s ease,
+    opacity 0.45s ease,
+    box-shadow 0.3s ease;
   box-shadow: 0 4.5px 5px 0 rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   overflow: hidden;
@@ -87,10 +88,7 @@
 .coverflow-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0);
   transition: background 0.3s ease;
@@ -125,6 +123,10 @@
   align-items: center;
   justify-items: center;
   font-weight: 600;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Animation for initial render */
@@ -175,7 +177,7 @@
   }
 
   .coverflow-card {
-    width: 180px;
+    width: 150px;
   }
 }
 
@@ -188,9 +190,6 @@
 
   .coverflow-card {
     width: 160px;
-  }
-
-  .coverflow-card {
     -webkit-box-reflect: below 0.25em
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
   }
@@ -229,9 +228,6 @@
 
   .coverflow-card {
     width: 220px;
-  }
-
-  .coverflow-card {
     -webkit-box-reflect: below 0.4em
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
   }
@@ -245,7 +241,7 @@
   }
 
   .coverflow-card {
-    width: 200px;
+    width: 180px;
   }
 }
 
@@ -257,7 +253,7 @@
   }
 
   .coverflow-card {
-    width: 260px;
+    width: 210px;
   }
 }
 
@@ -269,8 +265,7 @@
   }
 
   .coverflow-card {
-    width: 290px;
-
+    width: 250px;
     -webkit-box-reflect: below 0.5em
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
   }
@@ -284,18 +279,22 @@
   }
 
   .coverflow-card {
-    width: 260px;
+    width: 250px;
   }
 }
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   .coverflow-card {
-    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1),
+      opacity 0.3s ease,
+      z-index 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .coverflow-card:active {
-    transform: translateY(-50%) scale(0.98);
+    transform: scale(0.98);
   }
 }
 

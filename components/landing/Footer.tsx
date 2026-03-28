@@ -1,52 +1,23 @@
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
-import clsx from "clsx";
 import Logo from "./Logo";
 
-interface ViewportProps {
-  isMobile: boolean;
-  isTablet: boolean;
-  isLandscape: boolean;
-  height: number;
-  width: number;
-}
-
-export default function Footer({ viewport }: { viewport: ViewportProps }) {
+export default function Footer() {
   const year = new Date().getFullYear();
-
-  const isColumnLayout = viewport.isMobile && !viewport.isLandscape;
-
-  const getLayout = () => {
-    if (viewport.isLandscape && viewport.height < 500)
-      return "flex-row justify-between gap-2 py-1";
-    if (viewport.isLandscape && viewport.height < 600)
-      return "flex-row justify-between gap-3 py-2";
-    if (isColumnLayout) return "flex-col py-3";
-    return "flex-row justify-between gap-4 py-4";
-  };
-
-  const getIconSize = () => {
-    if (viewport.isLandscape && viewport.height < 500) return "h-3 w-3";
-    if (viewport.isLandscape && viewport.height < 600) return "h-4 w-4";
-    return "h-5 w-5";
-  };
 
   return (
     <footer
-      className={clsx(
-        "flex w-full text-neutral-600",
-        getLayout(),
-        isColumnLayout ? "items-center gap-3" : "items-center",
-      )}
+      className="
+        flex w-full items-center text-neutral-600
+        flex-col gap-3 py-3
+        sm:flex-row sm:justify-between sm:gap-4 sm:py-4
+      "
     >
-      {/* COPYRIGHT */}
       <div
-        className={clsx(
-          "flex items-center gap-2 text-xs sm:gap-3 sm:text-sm",
-          isColumnLayout
-            ? "order-2 mt-auto justify-center text-center w-full"
-            : "order-1",
-        )}
+        className="
+          order-2 flex w-full items-center justify-center gap-2 text-center text-xs
+          sm:order-1 sm:w-auto sm:justify-start sm:text-left sm:gap-3 sm:text-sm
+        "
       >
         <span className="inline-flex rounded-full p-0.5">
           <Logo
@@ -66,15 +37,14 @@ export default function Footer({ viewport }: { viewport: ViewportProps }) {
             dotColor="#4b5563"
           />
         </span>
-        <span>© {year} LindoCode Digital, Inc.</span>
+        <span>© {year} Lindocode Digital. All rights reserved.</span>
       </div>
 
-      {/* ICONS */}
       <div
-        className={clsx(
-          "flex items-center gap-3",
-          isColumnLayout ? "order-1 justify-center w-full" : "order-2",
-        )}
+        className="
+          order-1 flex w-full items-center justify-center gap-3
+          sm:order-2 sm:w-auto
+        "
       >
         <Link
           href="https://www.linkedin.com/company/lindocode-digital-pty-ltd"
@@ -83,7 +53,7 @@ export default function Footer({ viewport }: { viewport: ViewportProps }) {
           className="transition-transform duration-200 hover:scale-110"
           aria-label="LinkedIn"
         >
-          <Linkedin className={getIconSize()} />
+          <Linkedin className="h-5 w-5 sm:h-5 sm:w-5" />
         </Link>
 
         <Link
@@ -93,7 +63,7 @@ export default function Footer({ viewport }: { viewport: ViewportProps }) {
           className="transition-transform duration-200 hover:scale-110"
           aria-label="GitHub"
         >
-          <Github className={getIconSize()} />
+          <Github className="h-5 w-5 sm:h-5 sm:w-5" />
         </Link>
       </div>
     </footer>
