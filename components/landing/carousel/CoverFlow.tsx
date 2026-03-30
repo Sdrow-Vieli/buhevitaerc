@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/projects";
 import CoverFlowCard from "./CoverFlowCard";
@@ -29,6 +29,20 @@ function moveItemToCenteredIndex<T>(items: T[], targetIndex: number) {
 export default function CoverFlow({ covers }: CoverFlowProps) {
   const router = useRouter();
   const navigatingRef = useRef(false);
+
+  useEffect(() => {
+    const resetNavigation = () => {
+      navigatingRef.current = false;
+    };
+
+    window.addEventListener("pageshow", resetNavigation);
+    window.addEventListener("focus", resetNavigation);
+
+    return () => {
+      window.removeEventListener("pageshow", resetNavigation);
+      window.removeEventListener("focus", resetNavigation);
+    };
+  }, []);
 
   const reorderedCards = useMemo(
     () => moveItemToCenteredIndex(covers, 0),
