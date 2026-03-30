@@ -22,6 +22,7 @@ export default function CompanyName() {
           "sm:text-[2rem]",
           "md:text-[2.5rem]",
           "lg:text-[4rem]",
+          "font-['Lemon_Milk_Pro']",
         )}
       >
         {word.split("").map((char, index) =>
