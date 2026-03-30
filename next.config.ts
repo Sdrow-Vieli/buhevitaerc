@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
+        source: "/projects",
+        destination: "https://projects-mu-six.vercel.app/projects",
+      },
+      {
         source: "/projects/:path*",
         destination: "https://projects-mu-six.vercel.app/projects/:path*",
       },
