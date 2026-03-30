@@ -45,7 +45,7 @@ export const projects: Project[] = [
     image:
       "https://dawn-unit-97b0.sdrowvieli1.workers.dev/creativehub/images/cards/cards.webp",
     background: "",
-    link: "https://example.com",
+    link: "/projects",
     attribute: {
       artistName: "Kelly Sikkema",
       artistLink:
