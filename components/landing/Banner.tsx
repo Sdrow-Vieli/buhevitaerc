@@ -13,7 +13,8 @@ export default function Banner({
   textRight = "SCALE.",
   accentColor = "text-rose-600",
 }: BannerProps) {
-  const baseHeadline = "text-[clamp(1.1rem,3vw,2.25rem)] tracking-[0.12em]";
+  const baseHeadline =
+    "text-[clamp(1.1rem,3vw,2.25rem)] tracking-[0.12em] font-['Lemon_Milk_Pro']";
   const sideText = "font-medium text-neutral-700 opacity-90";
   const middleText = "font-black";
 

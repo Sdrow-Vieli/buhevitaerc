@@ -66,7 +66,7 @@ export default function CoverFlowCard({
         />
       </div>
 
-      <span className="lm-project-title">
+      <span className="lm-project-title font-lemon">
         {cover["card-title"] ?? cover.title}
       </span>
     </div>
